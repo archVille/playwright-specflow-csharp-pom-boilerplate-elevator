@@ -1,15 +1,7 @@
-# Test Automation UI Project using Playwright and Specflow
-
-![Publish nuget artifacts workflow](https://github.com/ianoflynnautomation/test-ui-playwright-specflow-dotnet/actions/workflows/publish_artifact.yml/badge.svg) ![Pull Request Continuous Integration](https://github.com/ianoflynnautomation/test-ui-playwright-specflow-dotnet/actions/workflows/pull_request.yml/badge.svg)
+# Test Automation Project using Playwright and Specflow
 
 ## Summary
-Test Automation Sample Project using Playwright and Specflow
-
-## Repository Ownership
-
-| Team | Contact Person |
-| ---- | ------------------------------------|
-|Team Owner| Ian O'Flynn|
+Test Automation Project using Playwright and Specflow
 
 ## Dev Instructions
 
@@ -231,6 +223,4 @@ page.VerifyItemDeleted();
 ```
 
 
-## Support
 
-Please create any support requests via a properly labeled issues in this repository.
