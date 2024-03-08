@@ -7,11 +7,12 @@ using TechTalk.SpecFlow;
 namespace PlaywrightDemo.Tests.UI.Hooks
 {
     [Binding]
-    public class TestHooks
+    public class Hooks
     {
         private readonly IObjectContainer _objectContainer;
+        public IPage User { get; private set; } = null!;
 
-        public TestHooks(IObjectContainer objectContainer)
+        public Hooks(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
         }
@@ -27,6 +28,7 @@ namespace PlaywrightDemo.Tests.UI.Hooks
             });
             var page = await browser.NewPageAsync();
             await page.GotoAsync(ConfigurationService.GetWebSettings().BaseUrl);
+ 
             _objectContainer.RegisterInstanceAs(browser);
             _objectContainer.RegisterInstanceAs(page);
         }

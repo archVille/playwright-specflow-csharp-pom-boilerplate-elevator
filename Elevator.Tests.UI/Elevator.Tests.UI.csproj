@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\Login - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ToDo - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,10 +36,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\Search.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\ToDo.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Features\Search.feature.cs">
+      <DependentUpon>Search.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
