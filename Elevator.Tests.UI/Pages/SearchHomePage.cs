@@ -19,7 +19,9 @@ namespace Elevator.Tests.UI.Pages
 
         private ILocator SearchInput => _page.Locator("input[id='searchbox_input']");
         private ILocator SearchButton => _page.Locator("button[type='submit']");
+        private ILocator Results => _page.Locator(".react-results--main");
 
+        
         public async Task GoToHomePage()
         {
            await _page.GotoAsync("https://duckduckgo.com/");
@@ -34,8 +36,13 @@ namespace Elevator.Tests.UI.Pages
 
         public async Task SearchAndEnter(string searchTerm)
         {
-            //await SearchInput.TypeAsync(searchTerm);
-            //await SearchButton.ClickAsync();
+            await SearchInput.TypeAsync(searchTerm);
+            await SearchButton.ClickAsync();
+        }
+
+        public async Task AssertSearchResults()
+        {
+            await Assertions.Expect(Results).ToBeVisibleAsync();
         }
     }
 }
