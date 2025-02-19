@@ -29,6 +29,12 @@ Run the tests by executing:
 dotnet test
 ```
 
+You may need to re-install Playwright, by
+
+```bash
+playwright install
+```
+
 ## Implementation Guidelines
 
 #### Automation Coding Standards
