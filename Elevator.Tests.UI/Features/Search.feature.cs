@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Elevator.Tests.UI.Features
+namespace Project.Tests.UI.Features
 {
     using TechTalk.SpecFlow;
     using System;

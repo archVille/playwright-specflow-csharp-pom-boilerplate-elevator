@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace PlaywrightDemo.Pages
+namespace Pages
 {
     public class ToDoPage
     {

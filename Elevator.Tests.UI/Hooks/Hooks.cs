@@ -4,7 +4,7 @@ using Practice.One.UI.Settings;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
-namespace PlaywrightDemo.Tests.UI.Hooks
+namespace Tests.UI.Hooks
 {
     [Binding]
     public class Hooks

@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using PlaywrightDemo.Pages;
+using Pages;
 using System.Linq;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;

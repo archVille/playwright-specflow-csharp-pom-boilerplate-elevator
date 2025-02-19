@@ -1,12 +1,7 @@
 ﻿using Microsoft.Playwright;
-using PlaywrightDemo.Tests.UI.Hooks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Elevator.Tests.UI.Pages
+namespace Tests.UI.Pages
 {
     public class SearchHomePage
     {

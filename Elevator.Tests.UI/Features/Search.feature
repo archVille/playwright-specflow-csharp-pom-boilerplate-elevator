@@ -1,6 +1,6 @@
 Feature: SearchForPlaywright
 As a user
-I want to search for a term
+I want to search for a term in Duckduckgo website
 So that I will be able to find the results 
 
 Scenario: Search for Playwright returns the results

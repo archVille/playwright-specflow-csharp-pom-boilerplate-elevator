@@ -1,4 +1,4 @@
-﻿using Elevator.Tests.UI.Pages;
+﻿using Tests.UI.Pages;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
