@@ -29,6 +29,11 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
+    - name: Install Playwright browsers
+      run: |
+        dotnet tool install --global playwright.cli
+        playwright install #This is the preferred method on linux.
+
     - name: Run Playwright tests
       run: dotnet test --configuration Release --no-build
 
