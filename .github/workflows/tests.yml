@@ -1,72 +1,31 @@
-name: build
+name: CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main, dotnet-vnext ]
   workflow_dispatch:
 
 jobs:
   build:
-    name: ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+    runs-on: self-hosted
 
     steps:
+    - uses: actions/checkout@v2
 
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
-
-    - name: Configure BrowserStack credentials
-      if: github.event.repository.fork == false
-      env:
-        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-        BROWSERSTACK_TOKEN: ${{ secrets.BROWSERSTACK_TOKEN }}
-      shell: pwsh
-      run: |
-        "BROWSERSTACK_USERNAME=${env:BROWSERSTACK_USERNAME}" | Out-File -FilePath $env:GITHUB_ENV -Append
-        "BROWSERSTACK_TOKEN=${env:BROWSERSTACK_TOKEN}" | Out-File -FilePath $env:GITHUB_ENV -Append
-
-    - name: Build and Test
-      shell: pwsh
-      run: ./build.ps1
-      env:
-        DOTNET_CLI_TELEMETRY_OPTOUT: true
-        DOTNET_NOLOGO: true
-        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-        DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
-        FORCE_COLOR: 1
-        NUGET_XMLDOC_MODE: skip
-        TERM: xterm
-
-    - name: Publish screenshots
-      uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        name: screenshots-${{ matrix.os }}
-        path: ./artifacts/screenshots/*
-        if-no-files-found: ignore
+        dotnet-version: '8.0'  # Replace with your desired .NET Core version
 
-    - name: Publish traces
-      uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: traces-${{ matrix.os }}
-        path: ./artifacts/traces/*
-        if-no-files-found: ignore
+    - name: Restore dependencies
+      run: dotnet restore
 
-    - name: Publish videos
-      uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test --configuration Release --no-build --verbosity normal --logger "trx;LogFileName=test_results.trx"
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v2
       with:
-        name: videos-${{ matrix.os }}
-        path: ./artifacts/videos/*
-        if-no-files-found: ignore
+        name: TestResults
+        path: '**/TestResults/*.trx'
