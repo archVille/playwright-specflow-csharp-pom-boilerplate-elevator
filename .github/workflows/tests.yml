@@ -30,7 +30,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Install Playwright browsers
-      run: dotnet exec --project Project/Project.csproj playwright install
+      run: dotnet exec Project/Project.csproj playwright install --configuration Release
 
 
     - name: Run Playwright tests
