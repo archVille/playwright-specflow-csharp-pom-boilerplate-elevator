@@ -1,41 +1,72 @@
-name: Run Tests
+name: build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main, dotnet-vnext ]
+  workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x' # Or your desired .NET version
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: dotnet restore
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
 
-      - name: Build
-        run: dotnet build --configuration Release
+    - name: Configure BrowserStack credentials
+      if: github.event.repository.fork == false
+      env:
+        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+        BROWSERSTACK_TOKEN: ${{ secrets.BROWSERSTACK_TOKEN }}
+      shell: pwsh
+      run: |
+        "BROWSERSTACK_USERNAME=${env:BROWSERSTACK_USERNAME}" | Out-File -FilePath $env:GITHUB_ENV -Append
+        "BROWSERSTACK_TOKEN=${env:BROWSERSTACK_TOKEN}" | Out-File -FilePath $env:GITHUB_ENV -Append
 
-      - name: Install Playwright browsers
-        run: dotnet tool install --global playwright.cli && playwright install
+    - name: Build and Test
+      shell: pwsh
+      run: ./build.ps1
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+        DOTNET_NOLOGO: true
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+        FORCE_COLOR: 1
+        NUGET_XMLDOC_MODE: skip
+        TERM: xterm
 
-      - name: Run Playwright tests
-        run: dotnet test --configuration Release --filter TestCategory=Playwright # Or your test filter
+    - name: Publish screenshots
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: screenshots-${{ matrix.os }}
+        path: ./artifacts/screenshots/*
+        if-no-files-found: ignore
 
-      - name: Upload Playwright test results (optional)
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-results
-          path: TestResults # Adjust path if needed
+    - name: Publish traces
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: traces-${{ matrix.os }}
+        path: ./artifacts/traces/*
+        if-no-files-found: ignore
+
+    - name: Publish videos
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: videos-${{ matrix.os }}
+        path: ./artifacts/videos/*
+        if-no-files-found: ignore
