@@ -35,8 +35,8 @@ namespace Project.Tests.UI.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SearchForPlaywright", "As a user\r\nI want to search for a term\r\nSo that I will be able to find the result" +
-                    "s ", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "SearchForPlaywright", "As a user\r\nI want to search for a term in Duckduckgo website\r\nSo that I will be a" +
+                    "ble to find the results ", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         

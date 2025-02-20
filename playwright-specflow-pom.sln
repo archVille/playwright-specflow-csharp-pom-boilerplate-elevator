@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Elevator\Project.csproj", "{74E36CC0-F27F-4B90-B63D-9ECF364CEE27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project", "Project\Project.csproj", "{74E36CC0-F27F-4B90-B63D-9ECF364CEE27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Tests.UI", "Elevator.Tests.UI\Project.Tests.UI.csproj", "{6DB2F3C2-6B87-4711-9B23-FF88494B5DF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Tests.UI", "Project.Tests.UI\Project.Tests.UI.csproj", "{6DB2F3C2-6B87-4711-9B23-FF88494B5DF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
