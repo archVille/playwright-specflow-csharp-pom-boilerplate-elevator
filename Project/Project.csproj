@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="C:\Projects\playwright-specflow-csharp-boilerplate\Elevator\.editorconfig" />
+    <EditorConfigFiles Remove="C:\Projects\playwright-specflow-csharp-boilerplate\Project\.editorconfig" />
   </ItemGroup>
 
 </Project>
