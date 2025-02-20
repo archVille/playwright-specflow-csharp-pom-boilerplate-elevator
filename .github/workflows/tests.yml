@@ -27,10 +27,10 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release
 
     - name: Install Playwright browsers
-      run: dotnet exec playwright install
+      run: dotnet exec --configuration Release --project Project/Project.csproj playwright install
 
 
     - name: Run Playwright tests
