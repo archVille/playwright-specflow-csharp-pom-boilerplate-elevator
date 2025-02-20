@@ -30,8 +30,7 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Install Playwright browsers
-      run: dotnet exec Project/Project.csproj playwright install --configuration Release
-
+      run: pwsh Project.Tests.UI/bin/Debug/net7.0/playwright.ps1 install --with-deps
 
     - name: Run Playwright tests
       run: dotnet test --configuration Release --no-build
